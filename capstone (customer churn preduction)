@@ -1,0 +1,12 @@
+def has_outliers(dataframe, numeric_columns, plot=False):
+   # variable_names = []
+    for col in numeric_columns:
+        low_limit, up_limit = outlier_thresholds(dataframe, col)
+        if dataframe[(dataframe[col] > up_limit) | (dataframe[col] < low_limit)].any(axis=None):
+            number_of_outliers = dataframe[(dataframe[col] > up_limit) | (dataframe[col] < low_limit)].shape[0]
+            print(col, " : ", number_of_outliers, "outliers")
+            #variable_names.append(col)
+            if plot:
+                sns.boxplot(x=dataframe[col])
+                plt.show()
+    #return variable_names
